@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "moscowliuda"
+version = "0.1.0"
+description = "Website for @moscowliuda"
+authors = ["Anton Demkin <avdemkin@avito.ru>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.2"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.1"
+mypy = "^1.8.0"
+black = "^24.2.0"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+ignore_missing_imports = true
+implicit_optional = true
+warn_unreachable = true
+exclude = [
+    "moscowliuda/settings.py",
+]
+
+[tool.black]
+skip-string-normalization = true
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+force_single_line = true
+line_length = 100
+py_version = 311
+
