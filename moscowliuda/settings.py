@@ -2,12 +2,9 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = "django-insecure-+yqdak=u-bjkgc($i$!r%_(x5rgotdmycu2hop*i*iv2-%(84j"
-
 DEBUG = True
-
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0.']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -17,6 +14,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "authorization.apps.AuthorizationConfig",
+    "moscowliuda_main.apps.MoscowliudaMainConfig",
 ]
 
 MIDDLEWARE = [
@@ -34,7 +32,7 @@ ROOT_URLCONF = "moscowliuda.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
