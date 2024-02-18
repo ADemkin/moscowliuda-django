@@ -1,5 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db.models import Model
 from django.db import models
 
@@ -30,13 +30,10 @@ class MoscowUser(AbstractUser):
     telegram = models.CharField(unique=True, max_length=255, null=True, blank=True, verbose_name='Телеграмм')
     instagram = models.CharField(unique=True, max_length=255, null=True, blank=True, verbose_name='Инстаграмм')
     phone = models.CharField(unique=True, max_length=20, verbose_name='Телефон')
-
     firstname = models.CharField(max_length=30, blank=True, verbose_name='Имя')
     surname = models.CharField(max_length=30, blank=True, verbose_name='Фамилия')
     patronymic = models.CharField(max_length=30, blank=True, verbose_name='Отчество')
-
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
-
     email = models.EmailField(unique=True, verbose_name='Почта')
 
     first_name = None
@@ -44,7 +41,6 @@ class MoscowUser(AbstractUser):
     username = None
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
-
     objects = MoscowUserManager()
 
 

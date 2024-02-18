@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from authorization.models import MoscowUser
 
+admin.site.site_header = 'Moscowliuda.ru'
+
 
 class MoscowUserAdmin(UserAdmin):
     list_display = ('id', 'firstname', 'surname', 'patronymic', 'email', 'phone', 'telegram', 'instagram')
@@ -26,9 +28,11 @@ class MoscowUserAdmin(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-            'email', 'password1', 'password2', 'firstname', 'surname', 'patronymic', 'phone', 'telegram', 'instagram'),
+                'email', 'password1', 'password2', 'firstname', 'surname', 'patronymic', 'phone', 'telegram',
+                'instagram'),
         }),
     )
     ordering = ('email',)
+
 
 admin.site.register(MoscowUser, MoscowUserAdmin)
