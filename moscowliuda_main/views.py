@@ -1,13 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-
-# Create your views here.
 def home(request):
-    context = {
-        'page_title': 'Домашняя страница',
-        'welcome_message': 'Добро пожаловать на наш сайт!'
+    if request.user.is_authenticated:
+        user = request.user
+        context = {
+            'page_title': 'Домашняя страница',
+            'welcome_message': f'Добро пожаловать на наш сайт! Зарегистрированный пользователь {user.email}'
     }
+    else:
+        context = {
+            'page_title': 'Домашняя страница',
+            'welcome_message': 'Добро пожаловать на наш сайт! Не зарегистрированный пользователь'
+        }
     return render(request, 'home.html', context)
 
 
