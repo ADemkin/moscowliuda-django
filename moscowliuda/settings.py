@@ -15,6 +15,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "authorization.apps.AuthorizationConfig",
     "moscowliuda_main.apps.MoscowliudaMainConfig",
+    "posobie.apps.PosobieConfig",
+    "project.apps.ProjectConfig",
 ]
 
 MIDDLEWARE = [
@@ -80,3 +82,5 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
+
+bot = "6800111134:AAGE54IqInIC68_nByP-HYTt40QbASzuzVU"
