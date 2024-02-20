@@ -1,29 +1,32 @@
 from django.contrib import admin
-from goods.models import TextBookPhoto, YoutubeUrl, TextBook, Project
+from .models import TextBook, Photo, Url
 
 
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('name', 'photo')
+    list_display = ('name', 'get_text_books')
     search_fields = ('name',)
+
+    def get_text_books(self, obj):
+        return ", ".join([tb.title for tb in obj.text_books.all()])
+
+    get_text_books.short_description = 'Учебники'
+
+
+class UrlAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url', 'get_text_books')
+    search_fields = ('name', 'url')
+
+    def get_text_books(self, obj):
+        return ", ".join([tb.title for tb in obj.text_books.all()])
+
+    get_text_books.short_description = 'Учебники'
 
 
 class TextBookAdmin(admin.ModelAdmin):
     list_display = ('title', 'sub_title', 'price_rub', 'created_at')
-    search_fields = ('title', 'sub_title', 'description')
+    filter_horizontal = ('secondary_photos', 'urls')
 
 
-class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'sub_title', 'created_at')
-    search_fields = ('title', 'sub_title', 'description')
-
-
-class YoutubeUrlAdmin(admin.ModelAdmin):
-    list_display = ('url',)
-    search_fields = ('url',)
-    filter_horizontal = ('books', 'projects')
-
-
-admin.site.register(Project, ProjectAdmin)
 admin.site.register(TextBook, TextBookAdmin)
-admin.site.register(YoutubeUrl, YoutubeUrlAdmin)
-admin.site.register(TextBookPhoto, PhotoAdmin)
+admin.site.register(Photo, PhotoAdmin)
+admin.site.register(Url, UrlAdmin)
