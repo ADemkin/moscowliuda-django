@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('name', models.CharField(max_length=100, verbose_name='Название фото')),
-                ('photo', models.ImageField(upload_to=goods.models.unique_file_name)),
+                ('photo', models.ImageField(upload_to='photos/', verbose_name='Фото'))
             ],
             options={
                 'verbose_name': 'Фото',

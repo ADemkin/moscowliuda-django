@@ -5,4 +5,8 @@
 {% block content %}
     <h1>{{ welcome_message }}</h1>
     <p>Это контент для домашней страницы.</p>
+    <h1>TextBooks</h1>
+    {{ textbook_list|safe }}
+    <h1>Projects</h1>
+    {{ project_list|safe }}
 {% endblock %}
