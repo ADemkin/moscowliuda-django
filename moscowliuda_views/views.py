@@ -12,7 +12,11 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Главная страница'
-        context['welcome_message'] = 'Добро пожаловать на главную страницу'
+        if self.request.user.is_authenticated:
+            context[
+                'welcome_message'] = f'Добро пожаловать на главную страницу, зарегистрированный пользователь {self.request.user.email}!'
+        else:
+            context['welcome_message'] = 'Добро пожаловать на главную страницу, гость!'
         context['textbook_list'] = render_to_string('textbook_list.html', {
             'textbooks': TextBook.objects.all()
         })

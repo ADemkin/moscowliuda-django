@@ -1,5 +1,29 @@
 <ul>
     {% for project in projects %}
-        <li>{{ project.title }}</li>
+        <li>
+            <h3>{{ project.title }}</h3>
+            <p>Подзаголовок: {{ project.sub_title }}</p>
+            {% if project.main_photo %}
+                <img src="{{ project.main_photo.photo.url }}" alt="{{ project.main_photo.name }}" style="width: 30%;">
+            {% endif %}
+            <p>Описание: {{ project.description }}</p>
+            <p>Дата создания: {{ project.created_at|date:"d.m.Y" }}</p>
+            <h4>Второстепенные фото:</h4>
+            <ul>
+                {% for photo in project.secondary_photos.all %}
+                    <li><img src="{{ photo.photo.url }}" alt="{{ photo.name }}" style="width: 20%;"></li>
+                {% empty %}
+                    <li>Нет второстепенных фото</li>
+                {% endfor %}
+            </ul>
+            <h4>Ссылки на ютуб:</h4>
+            <ul>
+                {% for url in project.urls.all %}
+                    <li><a href="{{ url.url }}">{{ url.name }}</a></li>
+                {% empty %}
+                    <li>Нет ссылок на ютуб</li>
+                {% endfor %}
+            </ul>
+        </li>
     {% endfor %}
 </ul>
