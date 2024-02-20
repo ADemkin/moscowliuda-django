@@ -10,8 +10,11 @@ help:
 	@echo "lint - run all linters"
 	@echo "fmt - run all formatters"
 
+
+
 install:
 	$(POETRY) install
+	$(MAKE) populate-db
 
 update:
 	$(POETRY) update
@@ -33,3 +36,6 @@ fmt-black:
 
 fmt: fmt-black
 	@echo "Formatting done."
+
+populate-db:
+	$(RUN)	python	add_item_to_db.py
