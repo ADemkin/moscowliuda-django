@@ -1,0 +1,30 @@
+<ul>
+    {% for textbook in textbooks %}
+        <li>
+            <h3>{{ textbook.title }}</h3>
+            <p>Подзаголовок: {{ textbook.sub_title }}</p>
+            <p>Цена: {{ textbook.price_rub }} руб.</p>
+            {% if textbook.main_photo %}
+                <img src="{{ textbook.main_photo.photo.url }}" alt="{{ textbook.main_photo.name }}" style="width: 30%;">
+            {% endif %}
+            <p>Описание: {{ textbook.description }}</p>
+            <p>Дата создания: {{ textbook.created_at|date:"d.m.Y" }}</p>
+            <h4>Второстепенные фото:</h4>
+            <ul>
+                {% for photo in textbook.secondary_photos.all %}
+                    <li><img src="{{ photo.photo.url }}" alt="{{ photo.name }}" style="width: 20%;"></li>
+                {% empty %}
+                    <li>Нет второстепенных фото</li>
+                {% endfor %}
+            </ul>
+            <h4>Ссылки на ютуб:</h4>
+            <ul>
+                {% for url in textbook.urls.all %}
+                    <li><a href="{{ url.url }}">{{ url.name }}</a></li>
+                {% empty %}
+                    <li>Нет ссылок на ютуб</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
