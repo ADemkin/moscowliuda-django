@@ -1,15 +1,9 @@
-import os
-from uuid import uuid4
 from django.db import models
 
-def unique_file_name(filename):
-    ext = filename.split('.')[-1]
-    filename = f"{uuid4()}.{ext}"
-    return os.path.join('text_book_photos', filename)
 
 class Photo(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название фото')
-    photo = models.ImageField(upload_to=unique_file_name)
+    photo = models.ImageField(upload_to='photos/', verbose_name='Фото')
 
     class Meta:
         verbose_name = 'Фото'
@@ -54,10 +48,27 @@ class TextBook(models.Model):
 class Project(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=100)
     sub_title = models.CharField(verbose_name='Подзаголовок', max_length=100)
-    main_photo = models.ImageField(verbose_name='Главное Фото', upload_to='project_photos')
+    main_photo = models.OneToOneField(
+        Photo,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='Главное фото',
+        related_name='main_photo_of_project'
+    )
+    secondary_photos = models.ManyToManyField(
+        Photo,
+        verbose_name='Второстепенные фото',
+        related_name='projects',
+        blank=True
+    )
     description = models.TextField(verbose_name='Описание', max_length=4000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
-    url = models.URLField(verbose_name='Ссылка на проект')
+    urls = models.ManyToManyField(
+        Url,
+        verbose_name='Ссылки на ютуб',
+        related_name='projects',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Проект'
