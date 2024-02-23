@@ -13,8 +13,7 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Главная страница'
         if self.request.user.is_authenticated:
-            context[
-                'welcome_message'] = f'Добро пожаловать на главную страницу, зарегистрированный пользователь {self.request.user.email}!'
+            context['welcome_message'] = f'Добро пожаловать на главную страницу, зарегистрированный пользователь {self.request.user.email}!'
         else:
             context['welcome_message'] = 'Добро пожаловать на главную страницу, гость!'
         context['textbook_list'] = render_to_string('textbook_list.html', {
@@ -24,7 +23,6 @@ class HomeView(TemplateView):
             'projects': Project.objects.all()
         })
         return context
-
 
 
 @login_required
