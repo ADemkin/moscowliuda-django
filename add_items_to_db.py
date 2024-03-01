@@ -1,21 +1,19 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moscowliuda.settings')
 import django
+
 django.setup()
 from goods.models import Photo, Url, TextBook, Project
-
-
 
 photo1 = Photo.objects.create(name='Фото 1', photo='photos/photo1.jpg')
 photo2 = Photo.objects.create(name='Фото 2', photo='photos/photo2.jpg')
 photo3 = Photo.objects.create(name='Фото 3', photo='photos/photo3.jpg')
 photo4 = Photo.objects.create(name='Фото 4', photo='photos/photo4.jpg')
 
-
 url1 = Url.objects.create(name='Ссылка 1', url='https://www.youtube.com/watch?v=BSlfcu4nDQI')
 url2 = Url.objects.create(name='Ссылка 2', url='https://www.youtube.com/watch?v=a7jYN_TToCY')
 url3 = Url.objects.create(name='Ссылка 3', url='https://www.youtube.com/watch?v=CP14arpa84M')
-
 
 textbook1 = TextBook.objects.create(
     title='Учебник 1',
@@ -36,7 +34,6 @@ textbook2 = TextBook.objects.create(
 )
 textbook2.secondary_photos.add(photo1, photo4)
 textbook2.urls.add(url2, url3)
-
 
 project1 = Project.objects.create(
     title='Проект 1',

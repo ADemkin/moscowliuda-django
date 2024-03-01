@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class AuthorizationConfig(AppConfig):
+class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    verbose_name = 'Авторизация'
-    name = 'authorization'
+    verbose_name = 'Пользователи'
+    name = 'users'

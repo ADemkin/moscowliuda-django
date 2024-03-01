@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
@@ -28,7 +27,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     telegram = models.CharField(unique=True, max_length=255, null=True, blank=True, verbose_name='Телеграмм')
     instagram = models.CharField(unique=True, max_length=255, null=True, blank=True, verbose_name='Инстаграмм')
-    phone = models.CharField(unique=True, max_length=20, verbose_name='Телефон')
+    phone = models.CharField(unique=True, null=True, blank=True, max_length=20, verbose_name='Телефон')
     patronymic = models.CharField(max_length=30, blank=True, verbose_name='Отчество')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     email = models.EmailField(unique=True, verbose_name='Почта')

@@ -25,14 +25,11 @@ class Url(models.Model):
         verbose_name_plural = 'Ссылки на ютуб'
 
 
-class TextBook(models.Model):
+class Good(models.Model):
     title = models.CharField(verbose_name='Заголовок', max_length=100)
     sub_title = models.CharField(verbose_name='Подзаголовок', max_length=100)
     price_rub = models.IntegerField(verbose_name='Цена')
-    main_photo = models.OneToOneField(Photo, on_delete=models.SET_NULL, null=True, verbose_name='Главное фото',
-                                      related_name='main_photo_of')
-    secondary_photos = models.ManyToManyField(Photo, verbose_name='Второстепенные фото', related_name='text_books',
-                                              blank=True)
+    main_photo = models.ImageField(null=True, verbose_name='Главное фото', related_name='main_photo_of')
     urls = models.ManyToManyField(Url, verbose_name='Ссылки на ютуб', related_name='text_books', blank=True)
     description = models.TextField(verbose_name='Описание', max_length=4000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
@@ -55,12 +52,7 @@ class Project(models.Model):
         verbose_name='Главное фото',
         related_name='main_photo_of_project'
     )
-    secondary_photos = models.ManyToManyField(
-        Photo,
-        verbose_name='Второстепенные фото',
-        related_name='projects',
-        blank=True
-    )
+
     description = models.TextField(verbose_name='Описание', max_length=4000)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     urls = models.ManyToManyField(
@@ -69,7 +61,6 @@ class Project(models.Model):
         related_name='projects',
         blank=True
     )
-
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'

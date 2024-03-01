@@ -13,8 +13,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "authorization.apps.AuthorizationConfig",
-    "moscowliuda_views.apps.MoscowliudaMainConfig",
+    "users.apps.UsersConfig",
+    "views.apps.ViewsConfig",
     "goods.apps.GoodsConfig",
 ]
 
@@ -70,7 +70,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'authorization.MoscowUser'
+AUTH_USER_MODEL = 'users.User'
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
