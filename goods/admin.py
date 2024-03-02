@@ -30,10 +30,20 @@ class UrlAdmin(admin.ModelAdmin):
         return obj.good.title if obj.good else None
     get_good.short_description = 'Пособие'
 
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    extra = 1
+
+class UrlInline(admin.TabularInline):
+    model = Url
+    extra = 1
+
+
 
 class GoodAdmin(admin.ModelAdmin):
     list_display = ('title', 'sub_title', 'price_rub', 'created_at')
     readonly_fields = ['formatted_text']
+    inlines = [PhotoInline, UrlInline]
 
     def formatted_text(self, obj):
         return obj.formatted_text
@@ -44,6 +54,7 @@ class GoodAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'sub_title', 'created_at')
     readonly_fields = ['formatted_text']
+    inlines = [PhotoInline, UrlInline]
 
     def formatted_text(self, obj):
         return obj.formatted_text
