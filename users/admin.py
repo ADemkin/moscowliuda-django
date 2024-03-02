@@ -1,16 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from authorization.models import MoscowUser
+from users.models import User
 
 admin.site.site_header = 'Moscowliuda.ru'
 
 
 class MoscowUserAdmin(UserAdmin):
-    list_display = ('id', 'firstname', 'surname', 'patronymic', 'email', 'phone', 'telegram', 'instagram')
+    list_display = ('id', 'first_name', 'last_name', 'patronymic', 'email', 'phone', 'telegram', 'instagram')
     fieldsets = (
         (None, {"fields": (
-            "firstname", "surname", "patronymic", "password",
+            "first_name", "last_name", "patronymic", "password",
             "email", "phone", "telegram", "instagram"
         )}),
         (_("Permissions"), {
@@ -28,11 +28,11 @@ class MoscowUserAdmin(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 'password1', 'password2', 'firstname', 'surname', 'patronymic', 'phone', 'telegram',
+                'email', 'password1', 'password2', 'first_name', 'last_name', 'patronymic', 'phone', 'telegram',
                 'instagram'),
         }),
     )
     ordering = ('email',)
 
 
-admin.site.register(MoscowUser, MoscowUserAdmin)
+admin.site.register(User, MoscowUserAdmin)

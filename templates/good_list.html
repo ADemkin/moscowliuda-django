@@ -1,19 +1,20 @@
 <ul>
-    {% for project in projects %}
+    {% for good in goods %}
         <li>
-            <h3>{{ project.title }}</h3>
-            <p>Подзаголовок: {{ project.sub_title }}</p>
+            <h3>{{good.title }}</h3>
+            <p>Подзаголовок: {{ good.sub_title }}</p>
+            <p>Цена: {{ good.price_rub }} руб.</p>
             <p>Главное фото:</p>
-            {% if project.main_photo %}
-                <img src="{{project.main_photo.url }}" alt="{{ project.main_photo.name }}" style="width: 30%;">
+            {% if good.main_photo %}
+                <img src="{{ good.main_photo.url }}" alt="{{ good.main_photo.name }}" style="width: 30%;">
             {% else %}
                 <p>Нет главного фото</p>
             {% endif %}
-            <p>Описание: {{project.description|safe }}</p>
-            <p>Дата создания: {{ project.created_at|date:"d.m.Y" }}</p>
+            <p>Описание: {{ good.description|safe }}</p>
+            <p>Дата создания: {{ good.created_at|date:"d.m.Y" }}</p>
             <h4>Второстепенные фото:</h4>
             <ul>
-                {% for photo in project.project_photos.all %}
+                {% for photo in good.good_photos.all %}
                     <li><img src="{{ photo.photo.url }}" alt="{{ photo.name }}" style="width: 20%;"></li>
                 {% empty %}
                     <li>Нет второстепенных фото</li>
@@ -21,8 +22,8 @@
             </ul>
             <h4>Ссылки на ютуб:</h4>
             <ul>
-                {% for url in project.project_photos.all %}
-                    <li><a href="{{url.url }}">{{ url.name }}</a></li>
+                {% for url in good.good_urls.all %}
+                    <li><a href="{{ url.url }}">{{ url.name }}</a></li>
                 {% empty %}
                     <li>Нет ссылок на ютуб</li>
                 {% endfor %}

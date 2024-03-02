@@ -1,48 +1,68 @@
 from django.contrib import admin
-from .models import TextBook, Photo, Url, Project
+from .models import Good, Photo, Url, Project
 
 
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('name', 'get_projects', 'get_textbooks')
+    list_display = ('name', 'get_project', 'get_good')
     search_fields = ('name',)
 
-    def get_projects(self, obj):
-        return ", ".join([p.title for p in obj.projects.all()])
+    def get_project(self, obj):
+        return obj.project.title if obj.project else None
 
-    get_projects.short_description = 'Проекты'
+    get_project.short_description = 'Проект'
 
-    def get_textbooks(self, obj):
-        return ", ".join([tb.title for tb in obj.text_books.all()])
+    def get_good(self, obj):
+        return obj.good.title if obj.good else None
 
-    get_textbooks.short_description = 'Учебники'
+    get_good.short_description = 'Пособие'
 
 
 class UrlAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'get_projects', 'get_textbooks')
+    list_display = ('name', 'url', 'get_project', 'get_good')
     search_fields = ('name', 'url')
 
-    def get_projects(self, obj):
-        return ", ".join([p.title for p in obj.projects.all()])
+    def get_project(self, obj):
+        return obj.project.title if obj.project else None
 
-    get_projects.short_description = 'Проекты'
+    get_project.short_description = 'Проект'
 
-    def get_textbooks(self, obj):
-        return ", ".join([tb.title for tb in obj.text_books.all()])
+    def get_good(self, obj):
+        return obj.good.title if obj.good else None
+    get_good.short_description = 'Пособие'
 
-    get_textbooks.short_description = 'Учебники'
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    extra = 1
+
+class UrlInline(admin.TabularInline):
+    model = Url
+    extra = 1
 
 
-class TextBookAdmin(admin.ModelAdmin):
+
+class GoodAdmin(admin.ModelAdmin):
     list_display = ('title', 'sub_title', 'price_rub', 'created_at')
-    filter_horizontal = ('secondary_photos', 'urls')
+    readonly_fields = ['formatted_text']
+    inlines = [PhotoInline, UrlInline]
+
+    def formatted_text(self, obj):
+        return obj.formatted_text
+
+    formatted_text.allow_tags = True
 
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'sub_title', 'created_at')
-    filter_horizontal = ('secondary_photos', 'urls')
+    readonly_fields = ['formatted_text']
+    inlines = [PhotoInline, UrlInline]
+
+    def formatted_text(self, obj):
+        return obj.formatted_text
+
+    formatted_text.allow_tags = True
 
 
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(TextBook, TextBookAdmin)
+admin.site.register(Good, GoodAdmin)
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Url, UrlAdmin)
